@@ -1,0 +1,35 @@
+{
+  "connection": "default",
+  "collectionName": "room",
+  "info": {
+    "name": "room",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "address": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "开课",
+        "安装",
+        "未安装"
+      ],
+      "type": "enumeration",
+      "required": true,
+      "default": "开课"
+    },
+    "organization": {
+      "model": "organization",
+      "via": "room"
+    }
+  }
+}
