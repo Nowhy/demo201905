@@ -30,8 +30,6 @@ module.exports = {
 //   .on('end', function () {
 //     console.log('Data loaded');
 //   })
-
-    // return strapi.services.department.uploadCSV(data);
     if (ctx.query._q) {
       return strapi.services.department.search(ctx.query);
     } else {

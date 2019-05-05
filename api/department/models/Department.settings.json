@@ -12,29 +12,36 @@
   },
   "attributes": {
     "签约事业部*": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "客户名称*": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "合同金额*": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "签约教室间数": {
       "type": "integer"
     },
     "签订日期*": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "合同状态*": {
       "enum": [
         "签约",
         "未签约"
       ],
-      "type": "enumeration"
+      "type": "enumeration",
+      "required": true,
+      "default": "签约"
     },
     "签订人*": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "是否付款": {
       "enum": [
