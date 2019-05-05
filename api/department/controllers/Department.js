@@ -64,7 +64,14 @@ module.exports = {
    */
 
   create: async (ctx) => {
-    return strapi.services.department.add(ctx.request.body);
+    const res =  await strapi.services.department.add(ctx.request.body);
+    if(res.status && res.status!=200){
+      ctx.response.status = res.status;
+      ctx.response.body = res.message;
+      return ctx.response;
+    }else{
+      return res;
+    }
   },
 
   /**
@@ -74,7 +81,14 @@ module.exports = {
    */
 
   update: async (ctx, next) => {
-    return strapi.services.department.edit(ctx.params, ctx.request.body) ;
+    const res = await strapi.services.department.edit(ctx.params, ctx.request.body) ;
+    if(res.status && res.status!=200){
+      ctx.response.status = res.status;
+      ctx.response.body = res.message;
+      return ctx.response;
+    }else{
+      return res;
+    }
   },
 
   /**

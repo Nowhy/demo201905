@@ -75,7 +75,7 @@ module.exports = {
   add: async (values) => {
     if(values.status!="安装" && values.status!= "未安装" && values.status!= "开课"){
       return {
-        "statusCode": 400,
+        "status": 400,
         "message": "Status is error",
       };
     }

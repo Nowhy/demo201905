@@ -50,8 +50,10 @@ module.exports = {
 
   create: async (ctx) => {
     const res = await strapi.services.room.add(ctx.request.body);
-    if(res.statusCode && res.statusCode!=200){
-      return ctx.response.badRequest([res.message], [ctx.request.body]);
+    if(res.status && res.status!=200){
+      ctx.response.status = res.status;
+      ctx.response.body = res.message;
+      return ctx.response;
     }else{
       return res;
     }

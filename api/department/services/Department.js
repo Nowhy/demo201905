@@ -73,6 +73,13 @@ module.exports = {
    */
 
   add: async (values) => {
+    const {"签约事业部*":签约事业部,"客户名称*":客户名称, "合同金额*":合同金额, "签订日期*":签订日期, "合同状态*":合同状态,"签订人*":签约人}=values;
+    if(签约事业部=="" || 客户名称=="" || 合同金额==null || 签订日期=="" || 合同状态=="" || 签约人==""){
+         return {
+                 "status": 400,
+                 "message": "带*的必填"
+          };
+    }
     // Extract values related to relational data.
     const relations = _.pick(values, Department.associations.map(ast => ast.alias));
     const data = _.omit(values, Department.associations.map(ast => ast.alias));
@@ -91,6 +98,13 @@ module.exports = {
    */
 
   edit: async (params, values) => {
+    const {"签约事业部*":签约事业部,"客户名称*":客户名称, "合同金额*":合同金额, "签订日期*":签订日期, "合同状态*":合同状态,"签订人*":签约人}=values;
+    if(签约事业部=="" || 客户名称=="" || 合同金额=="" || 签订日期=="" || 合同状态=="" || 签约人==""){
+         return {
+                 "status": 400,
+                 "message": "带*的必填"
+          };
+    }
     // Extract values related to relational data.
     const relations = _.pick(values, Department.associations.map(ast => ast.alias));
     const data = _.omit(values, Department.associations.map(ast => ast.alias));
@@ -98,8 +112,11 @@ module.exports = {
     // Create entry with no-relational data.
     const entry = await Department.forge(params).save(data);
 
-    // Create relational data and return the entry.
-    return Department.updateRelations(Object.assign(params, { values: relations }));
+     // Create relational data and return the entry.
+     return Department.updateRelations({ id: entry.id , values: relations });
+
+    // // Create relational data and return the entry.
+    // return Department.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
