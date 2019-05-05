@@ -1,8 +1,8 @@
-/* global Organization */
+/* global Department */
 'use strict';
 
 /**
- * Organization.js service
+ * Department.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -18,43 +18,43 @@ const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 module.exports = {
 
   /**
-   * Promise to fetch all organizations.
+   * Promise to fetch all departments.
    *
    * @return {Promise}
    */
 
   fetchAll: (params, populate) => {
     // Select field to populate.
-    const withRelated = populate || Organization.associations
+    const withRelated = populate || Department.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
     const filters = convertRestQueryParams(params);
 
-    return Organization.query(buildQuery({ model: Organization, filters }))
+    return Department.query(buildQuery({ model: Department, filters }))
       .fetchAll({ withRelated })
       .then(data => data.toJSON());
   },
 
   /**
-   * Promise to fetch a/an organization.
+   * Promise to fetch a/an department.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Organization.associations
+    const populate = Department.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    return Organization.forge(_.pick(params, 'id')).fetch({
+    return Department.forge(_.pick(params, 'id')).fetch({
       withRelated: populate
     });
   },
 
   /**
-   * Promise to count a/an organization.
+   * Promise to count a/an department.
    *
    * @return {Promise}
    */
@@ -63,54 +63,54 @@ module.exports = {
     // Convert `params` object to filters compatible with Bookshelf.
     const filters = convertRestQueryParams(params);
 
-    return Organization.query(buildQuery({ model: Organization, filters: _.pick(filters, 'where') })).count();
+    return Department.query(buildQuery({ model: Department, filters: _.pick(filters, 'where') })).count();
   },
 
   /**
-   * Promise to add a/an organization.
+   * Promise to add a/an department.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Organization.associations.map(ast => ast.alias));
-    const data = _.omit(values, Organization.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Department.associations.map(ast => ast.alias));
+    const data = _.omit(values, Department.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Organization.forge(data).save();
+    const entry = await Department.forge(data).save();
 
     // Create relational data and return the entry.
-    return Organization.updateRelations({ id: entry.id , values: relations });
+    return Department.updateRelations({ id: entry.id , values: relations });
   },
 
   /**
-   * Promise to edit a/an organization.
+   * Promise to edit a/an department.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Organization.associations.map(ast => ast.alias));
-    const data = _.omit(values, Organization.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Department.associations.map(ast => ast.alias));
+    const data = _.omit(values, Department.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Organization.forge(params).save(data);
+    const entry = await Department.forge(params).save(data);
 
     // Create relational data and return the entry.
-    return Organization.updateRelations(Object.assign(params, { values: relations }));
+    return Department.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an organization.
+   * Promise to remove a/an department.
    *
    * @return {Promise}
    */
 
   remove: async (params) => {
     params.values = {};
-    Organization.associations.map(association => {
+    Department.associations.map(association => {
       switch (association.nature) {
         case 'oneWay':
         case 'oneToOne':
@@ -127,41 +127,41 @@ module.exports = {
       }
     });
 
-    await Organization.updateRelations(params);
+    await Department.updateRelations(params);
 
-    return Organization.forge(params).destroy();
+    return Department.forge(params).destroy();
   },
 
   /**
-   * Promise to search a/an organization.
+   * Promise to search a/an department.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('organization', params);
+    const filters = strapi.utils.models.convertParams('department', params);
     // Select field to populate.
-    const populate = Organization.associations
+    const populate = Department.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    const associations = Organization.associations.map(x => x.alias);
-    const searchText = Object.keys(Organization._attributes)
-      .filter(attribute => attribute !== Organization.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['string', 'text'].includes(Organization._attributes[attribute].type));
+    const associations = Department.associations.map(x => x.alias);
+    const searchText = Object.keys(Department._attributes)
+      .filter(attribute => attribute !== Department.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['string', 'text'].includes(Department._attributes[attribute].type));
 
-    const searchInt = Object.keys(Organization._attributes)
-      .filter(attribute => attribute !== Organization.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['integer', 'decimal', 'float'].includes(Organization._attributes[attribute].type));
+    const searchInt = Object.keys(Department._attributes)
+      .filter(attribute => attribute !== Department.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['integer', 'decimal', 'float'].includes(Department._attributes[attribute].type));
 
-    const searchBool = Object.keys(Organization._attributes)
-      .filter(attribute => attribute !== Organization.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['boolean'].includes(Organization._attributes[attribute].type));
+    const searchBool = Object.keys(Department._attributes)
+      .filter(attribute => attribute !== Department.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['boolean'].includes(Department._attributes[attribute].type));
 
     const query = (params._q || '').replace(/[^a-zA-Z0-9.-\s]+/g, '');
 
-    return Organization.query(qb => {
+    return Department.query(qb => {
       if (!_.isNaN(_.toNumber(query))) {
         searchInt.forEach(attribute => {
           qb.orWhereRaw(`${attribute} = ${_.toNumber(query)}`);
@@ -175,7 +175,7 @@ module.exports = {
       }
 
       // Search in columns with text using index.
-      switch (Organization.client) {
+      switch (Department.client) {
         case 'mysql':
           qb.orWhereRaw(`MATCH(${searchText.join(',')}) AGAINST(? IN BOOLEAN MODE)`, `*${query}*`);
           break;

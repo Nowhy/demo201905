@@ -1,0 +1,69 @@
+{
+  "connection": "default",
+  "collectionName": "departments",
+  "info": {
+    "name": "department",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "签约事业部*": {
+      "type": "string"
+    },
+    "客户名称*": {
+      "type": "string"
+    },
+    "合同金额*": {
+      "type": "integer"
+    },
+    "签约教室间数": {
+      "type": "integer"
+    },
+    "签订日期*": {
+      "type": "date"
+    },
+    "合同状态*": {
+      "enum": [
+        "签约",
+        "未签约"
+      ],
+      "type": "enumeration"
+    },
+    "签订人*": {
+      "type": "string"
+    },
+    "是否付款": {
+      "enum": [
+        "是",
+        "否",
+        "定金"
+      ],
+      "type": "enumeration"
+    },
+    "付款日期": {
+      "type": "date"
+    },
+    "机构开课学期": {
+      "enum": [
+        "暑",
+        "寒",
+        "春",
+        "秋"
+      ],
+      "type": "enumeration"
+    },
+    "机构开课年份": {
+      "type": "integer"
+    },
+    "省": {
+      "type": "string"
+    },
+    "市": {
+      "type": "string"
+    }
+  }
+}

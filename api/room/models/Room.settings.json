@@ -26,10 +26,6 @@
       "type": "enumeration",
       "required": true,
       "default": "开课"
-    },
-    "organization": {
-      "model": "organization",
-      "via": "room"
     }
   }
 }
