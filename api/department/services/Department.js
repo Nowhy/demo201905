@@ -17,6 +17,10 @@ const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 
 module.exports = {
 
+  uploadCSV: (values)=>{
+
+  },
+
   /**
    * Promise to fetch all departments.
    *

@@ -15,6 +15,23 @@ module.exports = {
    */
 
   find: async (ctx, next, { populate } = {}) => {
+//     var fs = require('fs');
+//     const csv = require('csv-parser');
+//     var data = [];
+// fs.createReadStream('/Users/nancy/Desktop/测试数据.csv')
+//   .pipe(csv())
+//   .on('data', async function (row) {
+//     data.push(row);
+//     console.log(row);
+//     const final = await strapi.services.department.add(row);
+//     console.log(final);
+
+//   })
+//   .on('end', function () {
+//     console.log('Data loaded');
+//   })
+
+    // return strapi.services.department.uploadCSV(data);
     if (ctx.query._q) {
       return strapi.services.department.search(ctx.query);
     } else {
